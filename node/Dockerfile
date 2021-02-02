@@ -1,8 +1,9 @@
 ARG BASE_REGISTRY=registry.access.redhat.com
 ARG BASE_IMAGE=ubi8/ubi-minimal
 ARG BASE_TAG=latest
+ARG NODE_VERSION=lts
 
-FROM node:lts as base
+FROM node:${NODE_VERSION} as base
 
 FROM ${BASE_REGISTRY}/${BASE_IMAGE}:${BASE_TAG}
 
