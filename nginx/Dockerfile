@@ -6,7 +6,7 @@ FROM ${BASE_REGISTRY}/${BASE_IMAGE}:${BASE_TAG}
 
 USER root
 
-RUN dnf upgrade -y && \
+RUN dnf --disableplugin=subscription-manager upgrade -y && \
     curl -Lso /tmp/nginx-1.19.2.rpm https://nginx.org/packages/mainline/rhel/8/x86_64/RPMS/nginx-1.19.2-1.el8.ngx.x86_64.rpm && \
     curl -Lso /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key && \
     rpm --import /tmp/nginx_signing.key && \
@@ -26,7 +26,7 @@ RUN dnf upgrade -y && \
     chown -R nginx:nginx /etc/nginx && \
     touch /var/run/nginx.pid && \
     chown -R nginx:nginx /var/run/nginx.pid && \
-    dnf clean all && \
+    dnf --disableplugin=subscription-manager clean all && \
     rm -rf /var/cache/dnf
 
 USER nginx

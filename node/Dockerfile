@@ -16,7 +16,7 @@ RUN microdnf --disableplugin=subscription-manager install --nodocs shadow-utils 
     chown node:0 ${HOME} && \
     chmod g=u ${HOME} && \
     microdnf --disableplugin=subscription-manager update && \
-    microdnf clean all && \
+    microdnf --disableplugin=subscription-manager clean all && \
     rm -rf /var/cache/yum
 
 COPY --from=base /usr/local/bin /usr/local/bin
