@@ -20,6 +20,7 @@ RUN dnf upgrade -y && \
     # change port to 8080
     sed -i 's/80;/8080;/g' /etc/nginx/conf.d/default.conf && \
     # fix nginx user permissions
+    chown -R nginx:nginx /usr/share/nginx && \
     chown -R nginx:nginx /var/cache/nginx && \
     chown -R nginx:nginx /var/log/nginx && \
     chown -R nginx:nginx /etc/nginx && \
