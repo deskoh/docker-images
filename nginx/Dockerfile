@@ -3,15 +3,16 @@ ARG BASE_IMAGE=ubi8/ubi
 ARG BASE_TAG=latest
 
 FROM ${BASE_REGISTRY}/${BASE_IMAGE}:${BASE_TAG}
+ARG NGINX_VERSION=1.19.10
 
 USER root
 
 RUN dnf --disableplugin=subscription-manager upgrade -y && \
-    curl -Lso /tmp/nginx-1.19.2.rpm https://nginx.org/packages/mainline/rhel/8/x86_64/RPMS/nginx-1.19.2-1.el8.ngx.x86_64.rpm && \
+    curl -Lso /tmp/nginx-${NGINX_VERSION}.rpm https://nginx.org/packages/mainline/rhel/8/x86_64/RPMS/nginx-${NGINX_VERSION}-1.el8.ngx.x86_64.rpm && \
     curl -Lso /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key && \
     rpm --import /tmp/nginx_signing.key && \
-    dnf install -y /tmp/nginx-1.19.2.rpm && \
-    rm -f /tmp/nginx-1.19.2.rpm /tmp/nginx_signing.key && \
+    dnf install -y /tmp/nginx-${NGINX_VERSION}.rpm && \
+    rm -f /tmp/nginx-${NGINX_VERSION}.rpm /tmp/nginx_signing.key && \
     # pipe logs to stdout / stderr
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log && \
