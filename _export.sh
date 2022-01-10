@@ -11,9 +11,19 @@ echo docker load -i ubi-nginx.tar >> $OUT
 echo docker push ${PRIVATE_REGISTRY}nginx >> $OUT
 echo docker image rm ${PRIVATE_REGISTRY}nginx >> $OUT
 
+# node16
+
+docker build --build-arg NODE_VERSION=16 node -t ${PRIVATE_REGISTRY}node:16
+docker save ${PRIVATE_REGISTRY}node:16 -o ubi-node-16.tar
+docker image rm ${PRIVATE_REGISTRY}node:16
+
+echo docker load -i ubi-node-16.tar >> $OUT
+echo docker push ${PRIVATE_REGISTRY}node:16 >> $OUT
+echo docker image rm ${PRIVATE_REGISTRY}node:16 >> $OUT
+
 # node14
 
-docker build node -t ${PRIVATE_REGISTRY}node:14
+docker build --build-arg NODE_VERSION=14 node -t ${PRIVATE_REGISTRY}node:14
 docker save ${PRIVATE_REGISTRY}node:14 -o ubi-node-14.tar
 docker image rm ${PRIVATE_REGISTRY}node:14
 
